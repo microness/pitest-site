@@ -85,6 +85,30 @@ This goal does not currently guarantee to analyse changes made to non public cla
 
 Globs are pretty simple and will work as expected as long as you match packages (like `com.your.package.root.want.to.mutate*`). But if you match exact class names, inner classes won't be included. If you need them you'll have to either add a '*' at the end of the glob to also match them (`com.package.Class*` instead of `com.package.Class`) or to add another rule for it (`com.package.Class.*` in addition to `com.package.Class`).
 
+## Cross module tests
+
+By default, pitest assumes that the unit tests for your code live in the same maven module as the code.
+
+Since 1.17.1 limited support is available for projects where unit tests are within different modules, but this must be explicitly configured.
+
+If the property `crossModule` is set for a module, then pitest will mutate both code within that module and the code of any modules from the same project that the module depends on.
+
+It is important to understand that this could result in multiple results for each class. If your project has three modules
+
+```
+common
+a
+b
+```
+
+Where a and b both depend on common, then if common contained a single class named `Foo`, there would be three results for `Foo`. One in the report for `common`, and one each in the reports for the `a` and `b` modules (assuming `crossModule` had been set for true in both cases).
+
+If report aggregation is used without ensuring that each class is reported only once, the results are undefined.
+
+To ensure each class is reported only once, the user must configure the project to match their test strategy.
+
+If all the tests for `common` are contained in `a`, and `b` simply uses the code in common, then `crossModule` should be set for `a` only. If the relationship is more complicated, the `targetClasses` and `targetClasses` parameters must be set for each module so that only the intended code is mutated.
+
 ## Other options
 
 PIT tries to work sensibly out of the box, but also provides many configuration options.
