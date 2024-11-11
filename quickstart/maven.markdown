@@ -132,6 +132,20 @@ For example
 
 Will disable the filtering of junk mutations in code the compiler generates to support Java records, and enable the automatic setting of the number of threads based on the number of cores reported by the current machine.
 
+### extraFeatures
+
+List of additional features to enable or disable. This parameter allows additional features to be activated from the command-line or build scripts without overwriting
+existing configuration.
+
+e.g.
+
+```bash
+  mvn -Ppitest -DextraFeatures="+GIT(from[HEAD~1]), +arcmutate_history(run_tests[false])" test-compile
+```
+
+Here the parameter is used to activate arcmutate's git integration and history implementations without unintentionally
+deactivating features already enabled within the pom.xml.
+
 ### reportsDirectory
 
 Output directory for the reports
