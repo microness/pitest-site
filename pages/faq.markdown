@@ -68,6 +68,7 @@ Most commonly this is because either :
 
 * PIT is picking up tests that are not included/are excluded in the normal test config
 * Some tests rely on an environment variable or other property set in the test config, but not set in the Pitest config
+* Tests or code under test use reflection without filtering synthetic fields
 * The tests have a hidden order dependency that is not revealed during the normal test run 
 
 If you are using an unusual or custom JUnit runner this can also sometimes cause problems. To make things fast PIT does some tricky stuff to split your tests into small independent units. This works well with most JUnit runners but if you encounter one where it doesn't please post to the user group. 
