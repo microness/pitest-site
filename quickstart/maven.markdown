@@ -35,9 +35,11 @@ By default pitest will mutate all code in your project. You can limit which code
     <artifactId>pitest-maven</artifactId>
     <version>LATEST</version>
     <configuration>
+        <!-- no longer required -->
         <targetClasses>
             <param>com.your.package.root.want.to.mutate*</param>
         </targetClasses>
+        <!-- no longer required -->
         <targetTests>
             <param>com.your.package.root*</param>
         </targetTests>
@@ -84,6 +86,24 @@ This goal does not currently guarantee to analyse changes made to non public cla
 ## <a name="globs" id="globs"></a> Globs
 
 Globs are pretty simple and will work as expected as long as you match packages (like `com.your.package.root.want.to.mutate*`). But if you match exact class names, inner classes won't be included. If you need them you'll have to either add a '*' at the end of the glob to also match them (`com.package.Class*` instead of `com.package.Class`) or to add another rule for it (`com.package.Class.*` in addition to `com.package.Class`).
+
+## Dry Run Mode
+
+Introduced in 1.17.3, dry run mode configures pitest to gather coverage for all tests, and generate all mutants, without running any tests against the mutants. 
+
+This mode can be useful when first setting up pitest to iron out any problems pitest has with the test suite.
+
+To set dry run mode from within the pom add.
+
+```xml
+<dryRun>true</dryRun>
+```
+
+Or from the command line set `pit.dryRun`
+
+```bash
+mvn -Ppitest -Dpit.dryRun=true test
+```
 
 ## Cross module tests
 
