@@ -69,20 +69,6 @@ To speed-up repeated analysis of the same codebase set the `withHistory` paramet
 mvn -DwithHistory test-compile org.pitest:pitest-maven:mutationCoverage
 ```
 
-### scmMutationCoverage goal
-
-The scm mutation coverage goal analyses only classes that match the filters and the source file has a given status within the project source control system (by default ADDED or MODIFIED). This provides a quick way to check the coverage of changes prior to checking code in / pushing code to a repository.
-
-```bash
-mvn org.pitest:pitest-maven:scmMutationCoverage -Dinclude=ADDED,UNKNOWN -DmutationThreshold=85
-```
-
-To use this goal the maven [scm plugin](https://maven.apache.org/scm/maven-scm-plugin/usage.html) must be correctly configured for the project
-
-
-
-This goal does not currently guarantee to analyse changes made to non public classes that are not inner classes.
-
 ## <a name="globs" id="globs"></a> Globs
 
 Globs are pretty simple and will work as expected as long as you match packages (like `com.your.package.root.want.to.mutate*`). But if you match exact class names, inner classes won't be included. If you need them you'll have to either add a '*' at the end of the glob to also match them (`com.package.Class*` instead of `com.package.Class`) or to add another rule for it (`com.package.Class.*` in addition to `com.package.Class`).
