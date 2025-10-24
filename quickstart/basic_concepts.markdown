@@ -97,7 +97,7 @@ enables PIT to test entire code bases, rather than single classes at a time.
 For each mutation PIT will report one of the following outcomes
 
 * **Killed**
-* **Lived**
+* **Survived**
 * **No coverage**
 * **Non viable**
 * **Timed Out**
@@ -106,9 +106,9 @@ For each mutation PIT will report one of the following outcomes
 
 **Killed** means a test caught the mutation successfully.
 
-**Lived** means the mutation was not detected by the covering test.
+**Survived** means the mutation was not detected by the covering test.
 
-**No coverage** is the same as **Lived** except there were no tests that exercised the line of code where the mutation was created.
+**No coverage** is the same as **Survived** except there were no tests that exercised the line of code where the mutation was created.
 
 A mutation may **time out** if it causes an infinite loop, such as removing the increment from a counter in
 a for loop.
